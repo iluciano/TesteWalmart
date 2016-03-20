@@ -7,6 +7,7 @@
     <title>Teste Walmart</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body ng-app="myApp">
@@ -26,9 +27,15 @@
             <h4>Pedidos</h4>        
           <ul class="collapsible" data-collapsible="accordion">
             <li ng-repeat="pedido in pedidos">
-              <div class="collapsible-header"><i class="material-icons">label_outline</i>{{pedidos.numeroPedido}}</div>
+              <div class="collapsible-header"><i class="material-icons">label_outline</i>
+                  Pedido: {{pedido.numeroPedido}} - Data da compra: {{pedido.dataCompra | date:'dd MM, yyyy'}}
+              </div>
               <div class="collapsible-body">
-                  <p>{{pedidos.nomeProduto}}</p>
+                  <div class="row">
+                      <div class="col s12"><h5>{{pedido.nomeProduto}}</h5></div>
+                      <div class="col s6"><img class="img-pedidos" ng-src="{{pedido.imageProduto}}"></div>
+                      <div class="col s6"></div>
+                  </div>
               </div>
             </li>
           </ul>        
@@ -47,13 +54,6 @@
     <script src="js/app.js"></script>
     <!-- Controllers -->
     <script src="js/controllers/PedidosController.js"></script>
-    
-    <script>
-        $(document).ready(function(){
-            $('.collapsible').collapsible({
-              accordion : false
-            });
-        });    
-    </script>
+
 </body>
 </html>
