@@ -20,7 +20,25 @@
             </ul>
         </div>
     </nav>
+    <!--Pedidos-->
+    <section id="pedidos" ng-controller="PedidosController">
+        <div class="container">
+            <h4>Pedidos</h4>        
+          <ul class="collapsible" data-collapsible="accordion">
+            <li ng-repeat="pedido in pedidos">
+              <div class="collapsible-header"><i class="material-icons">label_outline</i>{{pedidos.numeroPedido}}</div>
+              <div class="collapsible-body">
+                  <p>{{pedidos.nomeProduto}}</p>
+              </div>
+            </li>
+          </ul>        
+        </div>
+    </section>
     
+    <section id="enderecos">
+    </section>
+    <section id="perfil">
+    </section>
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -28,6 +46,14 @@
     <!-- Modules -->
     <script src="js/app.js"></script>
     <!-- Controllers -->
-    <script src="js/controllers/MainController.js"></script>    
+    <script src="js/controllers/PedidosController.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            $('.collapsible').collapsible({
+              accordion : false
+            });
+        });    
+    </script>
 </body>
 </html>
