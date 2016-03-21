@@ -130,11 +130,113 @@
     <!--Endereços-->
     
     <!--Perfil-->
-    <section id="perfil" ng-show="showPerfil">
+    <section id="perfil" ng-controller="PerfilController" ng-show="showPerfil">
         <div class="container">
             <h4>Perfil</h4>
-        </div>        
-    </section>
+            <div class="div-perfil-wrapper">
+                <div class="div-perfil-welcome">
+                    <div class="row">
+                        <div class="col s2"><i class="large material-icons">account_circle</i></div>
+                        <div class="col s10"><h3>Olá {{nome}}</h3></div>
+                        <div class="col s10 offset-s2"><h5>Esse é o seu cadastro, bem vindo a nossa loja.</h5></div>
+                    </div>
+                </div>
+                <div class="div-perfil-dados">
+                    <h5>Seus dados</h5>
+                    <div class="div-perfil-dados">
+                      <div class="row">
+                        <form class="col s12">
+                          <div class="row">
+                            <div class="input-field col s6">
+                              <i class="material-icons prefix">account_circle</i>
+                              <input id="icon_prefix" type="text" class="validate" disabled value="{{nome}}">
+                              <label for="icon_prefix">Nome</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <i class="material-icons prefix">phone</i>
+                              <input id="icon_telephone" type="tel" class="validate" disabled value="{{telefone}}">
+                              <label for="icon_telephone">Telefone</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s6">
+                              <i class="material-icons prefix">subtitles</i>
+                              <input id="icon_subtitles" type="text" class="validate" disabled value="{{cpf}}">
+                              <label for="icon_subtitles">CPF</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <i class="material-icons prefix">info</i>
+                              <input id="icon_info" type="email" class="validate" disabled value="{{email}}">
+                              <label for="icon_info">E-mail</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s6">
+                              <i class="material-icons prefix">person_pin</i>
+                              <input id="icon_person_pin" type="text" class="validate" disabled value="{{sexo}}">
+                              <label for="icon_person_pin">Sexo</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <i class="material-icons prefix">vpn_key</i>
+                              <input id="icon_vpn_key" type="password" class="validate" disabled value="{{senha}}">
+                              <label for="icon_vpn_key">Senha</label>
+                            </div>
+                          </div>
+                            <div class="fixed-action-btn vertical" style="bottom: 45px; right: 44px;">
+                                <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modalPerfil"><i class="large material-icons">mode_edit</i></a>
+                                <ul>
+                                  <li>Editar</li>
+                                </ul>                                
+                            </div>
+                        </form>
+                      </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modalPerfil" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                              <input value="{{nome}}" id="txtNome" type="text" class="validate">
+                              <label class="active" for="txtNome">Nome</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{telefone}}" id="txtTelefone" type="text" class="validate">
+                              <label class="active" for="txtTelefone">Telefone</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{cpf}}" id="txtCPF" type="text" class="validate">
+                              <label class="active" for="txtCPF">CPF</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{email}}" id="txtEmail" type="email" class="validate">
+                              <label class="active" for="txtEmail">E-mail</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select>
+                                  <option value="" disabled selected>{{sexo}}</option>
+                                  <option value="1">Masculino</option>
+                                  <option value="2">Feminino</option>
+                                  <option value="3">Outro</option>
+                                </select>
+                                <label>Sexo</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{senha}}" id="txtSenha" type="password" class="validate">
+                              <label class="active" for="txtSenha">Senha</label>
+                            </div>                            
+                        </div>                          
+                    </form>
+                </div>
+            </div>
+        <div class="modal-footer">
+          <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+        </div>
+      </div>        
+    </section>    
     <!--Perfil-->
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -152,6 +254,7 @@
     <script>
       $(document).ready(function(){
         $('.modal-trigger').leanModal();
+        $('select').material_select();
       });    
     </script>
     
