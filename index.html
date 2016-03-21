@@ -13,12 +13,14 @@
 <body ng-app="myApp">
     <nav>
         <div class="nav-wrapper blue darken-3">
-            <a href="#" class="brand-logo">Teste Walmart</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="" ng-click="showPedidos = ! showPedidos">Pedidos</a></li>
-                <li><a href="" ng-click="showEnderecos = ! showEnderecos">Endereços</a></li>
-                <li><a href="" ng-click="showPerfil = ! showPerfil">Perfil</a></li>
-            </ul>
+            <div class="container">
+                <a href="#" class="brand-logo">Teste Walmart</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="" ng-click="showPedidos = ! showPedidos">Pedidos</a></li>
+                    <li><a href="" ng-click="showEnderecos = ! showEnderecos">Endereços</a></li>
+                    <li><a href="" ng-click="showPerfil = ! showPerfil">Perfil</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
     
@@ -36,17 +38,32 @@
             </div>
           </nav>
           <ul class="collapsible" data-collapsible="accordion">
-            <li ng-repeat="pedido in pedidos | filter: search">
+            <li ng-repeat="pedido in pedidos | filter: search | orderBy:'-dataCompra'">
               <div class="collapsible-header"><i class="material-icons">label_outline</i>
                   Pedido: {{pedido.numeroPedido}} - Data da compra: {{pedido.dataCompra | date}}
               </div>
               <div class="collapsible-body">
-                  <div class="row">
-                      <div class="col s2"><img class="img-pedidos" ng-src="{{pedido.imageProduto}}"></div>
-                      <div class="col s10">
-                          <h5>{{pedido.nomeProduto}}</h5>
-                      </div> 
-                  </div>
+                  <table>
+                    <thead>
+                      <tr>
+                          <th data-field="produto">Produto</th>
+                          <th></th>
+                          <th data-field="preco">Preço</th>
+                          <th data-field="quantidade">Quantidade</th>
+                          <th data-field="subtotal">Subtotal</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr ng-repeat="produtos in pedido.produtosPedido">
+                        <td><img class="img-pedidos" ng-src="{{produtos.imageProduto}}"></td>
+                        <td>{{produtos.nomeProduto}}</td>
+                        <td>{{produtos.precoProduto | currency}}</td>
+                        <td>{{produtos.qtdProduto}}</td>
+                        <td>{{produtos.precoProduto * produtos.qtdProduto | currency}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
               </div>
             </li>
           </ul>        
@@ -69,21 +86,46 @@
                     <p>{{endereco.cidade}} - {{endereco.estado}}</p>
                 </div>
                 <div class="card-action">
-                  <a class="waves-effect waves-light modal-trigger" href="#modal1">Editar</a>
+                  <a class="waves-effect waves-light modal-trigger" href="#modal{{endereco.codEndereco}}">Editar</a>
                 </div>                  
               </div>
+              <div id="modal{{endereco.codEndereco}}" class="modal">
+                <div class="modal-content">
+                  <h4>{{endereco.identificacaoEndereco}}</h4>
+                    <div class="row">
+                        <form class="col s12">
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input value="{{endereco.endereco}}" id="txtEndereco" type="text" class="validate">
+                              <label class="active" for="txtEndereco">Endereço</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{endereco.bairro}}" id="txtBairro" type="text" class="validate">
+                              <label class="active" for="txtBairro">Bairro</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{endereco.cep}}" id="txtCEP" type="text" class="validate">
+                              <label class="active" for="txtCEP">CEP</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{endereco.cidade}}" id="txtCidade" type="text" class="validate">
+                              <label class="active" for="txtCidade">Cidade</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input value="{{endereco.estado}}" id="txtEstado" type="text" class="validate">
+                              <label class="active" for="txtEstado">Estado</label>
+                            </div>                              
+                          </div>                          
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+                </div>
+              </div>                 
             </div>
           </div>            
-        </div>
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-              <h4>Modal Header</h4>
-              <p>A bunch of text</p>
-            </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-            </div>
-          </div>        
+        </div>       
     </section>
     <!--Endereços-->
     

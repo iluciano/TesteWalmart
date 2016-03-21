@@ -3,7 +3,7 @@ app.controller('EnderecoController',
     $scope.enderecos =
 	[
 		{
-		    codEndereco: 01,
+		    codEndereco: 1,
             identificacaoEndereco: 'Endereço Principal',
             endereco: 'Rua: Paulo de Avelar, 652',
 		    bairro: 'Parada Inglesa',
@@ -12,7 +12,7 @@ app.controller('EnderecoController',
             estado: 'SP'
 		},
 		{
-		    codEndereco: 02,
+		    codEndereco: 2,
             identificacaoEndereco: 'Endereço Comercial',
             endereco: 'Rua: Henrique Ongari, 100',
 		    bairro: 'Água Fria',
