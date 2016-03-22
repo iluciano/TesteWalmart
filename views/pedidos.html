@@ -1,0 +1,54 @@
+    <!--Pedidos-->
+    <section id="pedidos" ng-controller="PedidosController">
+        <div class="container">
+          <h4>Pedidos</h4>
+          <nav>
+            <div class="nav-wrapper">
+                <div class="input-field">
+                  <input id="search" placeholder="Filtrar pedidos - Digite o número do pedido ou o nome do produto" type="search" required ng-model="search">
+                  <label for="search"><i class="material-icons">search</i></label>
+                  <i class="material-icons">close</i>
+                </div>
+            </div>
+          </nav>
+          <ul class="collapsible" data-collapsible="accordion">
+            <li class="hoverable" ng-repeat="pedido in pedidos | filter: search | orderBy:'-dataCompra'">
+              <div class="collapsible-header"><i class="material-icons">label_outline</i>
+                  Pedido: {{pedido.numeroPedido}} - Data da compra: {{pedido.dataCompra | date}}
+              </div>
+              <div class="collapsible-body">
+                  <table>
+                    <thead>
+                      <tr>
+                          <th data-field="produto">Produto</th>
+                          <th></th>
+                          <th data-field="preco">Preço</th>
+                          <th data-field="quantidade">Quantidade</th>
+                          <th data-field="subtotal">Subtotal</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr ng-repeat="produtos in pedido.produtosPedido">
+                        <td><img class="img-pedidos" ng-src="{{produtos.imageProduto}}"></td>
+                        <td>{{produtos.nomeProduto}}</td>
+                        <td>{{produtos.precoProduto | currency}}</td>
+                        <td>{{produtos.qtdProduto}}</td>
+                        <td>{{produtos.precoProduto * produtos.qtdProduto | currency}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </li>
+          </ul>        
+        </div>
+    </section>
+    <script>
+      $(document).ready(function(){
+        $('.modal-trigger').leanModal();
+        $('.collapsible').collapsible({
+            accordion : false
+        });
+      });    
+    </script>
+    <!--Pedidos-->

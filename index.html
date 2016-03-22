@@ -16,247 +16,29 @@
             <div class="container">
                 <a href="#" class="brand-logo">Teste Walmart</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="" ng-click="showPedidos = ! showPedidos">Pedidos</a></li>
-                    <li><a href="" ng-click="showEnderecos = ! showEnderecos">Endereços</a></li>
-                    <li><a href="" ng-click="showPerfil = ! showPerfil">Perfil</a></li>
+                    <li><a ng-href="#/pedidos">Pedidos</a></li>
+                    <li><a ng-href="#/enderecos">Endereços</a></li>
+                    <li><a ng-href="#/perfil">Perfil</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     
-    <!--Pedidos-->
-    <section id="pedidos" ng-controller="PedidosController" ng-show="showPedidos">
-        <div class="container">
-          <h4>Pedidos</h4>
-          <nav>
-            <div class="nav-wrapper">
-                <div class="input-field">
-                  <input id="search" placeholder="Filtrar pedidos - Digite o número do pedido ou o nome do produto" type="search" required ng-model="search">
-                  <label for="search"><i class="material-icons">search</i></label>
-                  <i class="material-icons">close</i>
-                </div>
-            </div>
-          </nav>
-          <ul class="collapsible" data-collapsible="accordion">
-            <li ng-repeat="pedido in pedidos | filter: search | orderBy:'-dataCompra'">
-              <div class="collapsible-header"><i class="material-icons">label_outline</i>
-                  Pedido: {{pedido.numeroPedido}} - Data da compra: {{pedido.dataCompra | date}}
-              </div>
-              <div class="collapsible-body">
-                  <table>
-                    <thead>
-                      <tr>
-                          <th data-field="produto">Produto</th>
-                          <th></th>
-                          <th data-field="preco">Preço</th>
-                          <th data-field="quantidade">Quantidade</th>
-                          <th data-field="subtotal">Subtotal</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <tr ng-repeat="produtos in pedido.produtosPedido">
-                        <td><img class="img-pedidos" ng-src="{{produtos.imageProduto}}"></td>
-                        <td>{{produtos.nomeProduto}}</td>
-                        <td>{{produtos.precoProduto | currency}}</td>
-                        <td>{{produtos.qtdProduto}}</td>
-                        <td>{{produtos.precoProduto * produtos.qtdProduto | currency}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-              </div>
-            </li>
-          </ul>        
-        </div>
-    </section>
-    <!--Pedidos-->
-    
-    <!--Endereços-->
-    <section id="enderecos" ng-controller="EnderecoController" ng-show="showEnderecos">
-        <div class="container">
-          <h4>Endereços</h4>
-          <div class="row">
-            <div class="col s6 m6" ng-repeat="endereco in enderecos">
-              <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                  <span class="card-title">{{endereco.identificacaoEndereco}}</span>
-                    <p>{{endereco.endereco}}</p>
-                    <p>{{endereco.bairro}}</p>
-                    <p>{{endereco.cep}}</p>
-                    <p>{{endereco.cidade}} - {{endereco.estado}}</p>
-                </div>
-                <div class="card-action">
-                  <a class="waves-effect waves-light modal-trigger" href="#modal{{endereco.codEndereco}}">Editar</a>
-                </div>                  
-              </div>
-              <div id="modal{{endereco.codEndereco}}" class="modal">
-                <div class="modal-content">
-                  <h4>{{endereco.identificacaoEndereco}}</h4>
-                    <div class="row">
-                        <form class="col s12">
-                          <div class="row">
-                            <div class="input-field col s12">
-                              <input value="{{endereco.endereco}}" id="txtEndereco" type="text" class="validate">
-                              <label class="active" for="txtEndereco">Endereço</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{endereco.bairro}}" id="txtBairro" type="text" class="validate">
-                              <label class="active" for="txtBairro">Bairro</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{endereco.cep}}" id="txtCEP" type="text" class="validate">
-                              <label class="active" for="txtCEP">CEP</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{endereco.cidade}}" id="txtCidade" type="text" class="validate">
-                              <label class="active" for="txtCidade">Cidade</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{endereco.estado}}" id="txtEstado" type="text" class="validate">
-                              <label class="active" for="txtEstado">Estado</label>
-                            </div>                              
-                          </div>                          
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
-                </div>
-              </div>                 
-            </div>
-          </div>            
-        </div>       
-    </section>
-    <!--Endereços-->
-    
-    <!--Perfil-->
-    <section id="perfil" ng-controller="PerfilController" ng-show="showPerfil">
-        <div class="container">
-            <h4>Perfil</h4>
-            <div class="div-perfil-wrapper">
-                <div class="div-perfil-welcome">
-                    <div class="row">
-                        <div class="col s2"><i class="large material-icons">account_circle</i></div>
-                        <div class="col s10"><h3>Olá {{nome}}</h3></div>
-                        <div class="col s10 offset-s2"><h5>Esse é o seu cadastro, bem vindo a nossa loja.</h5></div>
-                    </div>
-                </div>
-                <div class="div-perfil-dados">
-                    <h5>Seus dados</h5>
-                    <div class="div-perfil-dados">
-                      <div class="row">
-                        <form class="col s12">
-                          <div class="row">
-                            <div class="input-field col s6">
-                              <i class="material-icons prefix">account_circle</i>
-                              <input id="icon_prefix" type="text" class="validate" disabled value="{{nome}}">
-                              <label for="icon_prefix">Nome</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <i class="material-icons prefix">phone</i>
-                              <input id="icon_telephone" type="tel" class="validate" disabled value="{{telefone}}">
-                              <label for="icon_telephone">Telefone</label>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s6">
-                              <i class="material-icons prefix">subtitles</i>
-                              <input id="icon_subtitles" type="text" class="validate" disabled value="{{cpf}}">
-                              <label for="icon_subtitles">CPF</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <i class="material-icons prefix">info</i>
-                              <input id="icon_info" type="email" class="validate" disabled value="{{email}}">
-                              <label for="icon_info">E-mail</label>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s6">
-                              <i class="material-icons prefix">person_pin</i>
-                              <input id="icon_person_pin" type="text" class="validate" disabled value="{{sexo}}">
-                              <label for="icon_person_pin">Sexo</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <i class="material-icons prefix">vpn_key</i>
-                              <input id="icon_vpn_key" type="password" class="validate" disabled value="{{senha}}">
-                              <label for="icon_vpn_key">Senha</label>
-                            </div>
-                          </div>
-                            <div class="fixed-action-btn vertical" style="bottom: 45px; right: 44px;">
-                                <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modalPerfil"><i class="large material-icons">mode_edit</i></a>
-                                <ul>
-                                  <li>Editar</li>
-                                </ul>                                
-                            </div>
-                        </form>
-                      </div>                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="modalPerfil" class="modal">
-            <div class="modal-content">
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                              <input value="{{nome}}" id="txtNome" type="text" class="validate">
-                              <label class="active" for="txtNome">Nome</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{telefone}}" id="txtTelefone" type="text" class="validate">
-                              <label class="active" for="txtTelefone">Telefone</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{cpf}}" id="txtCPF" type="text" class="validate">
-                              <label class="active" for="txtCPF">CPF</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{email}}" id="txtEmail" type="email" class="validate">
-                              <label class="active" for="txtEmail">E-mail</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <select>
-                                  <option value="" disabled selected>{{sexo}}</option>
-                                  <option value="1">Masculino</option>
-                                  <option value="2">Feminino</option>
-                                  <option value="3">Outro</option>
-                                </select>
-                                <label>Sexo</label>
-                            </div>
-                            <div class="input-field col s6">
-                              <input value="{{senha}}" id="txtSenha" type="password" class="validate">
-                              <label class="active" for="txtSenha">Senha</label>
-                            </div>                            
-                        </div>                          
-                    </form>
-                </div>
-            </div>
-        <div class="modal-footer">
-          <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
-        </div>
-      </div>        
-    </section>    
-    <!--Perfil-->
-    
+    <ng-view></ng-view>
+        
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.js"></script>
     <script src="js/angular-locale_pt-br.js"></script>
     <!-- Modules -->
     <script src="js/app.js"></script>
     <!-- Controllers -->
-    <script src="js/controllers/MainController.js"></script>
     <script src="js/controllers/PedidosController.js"></script>    
     <script src="js/controllers/EnderecoController.js"></script>
     <script src="js/controllers/PerfilController.js"></script>
-    
-    <script>
-      $(document).ready(function(){
-        $('.modal-trigger').leanModal();
-        $('select').material_select();
-      });    
-    </script>
+    <!--Configs-->
+    <script src="js/config/routeConfig.js"></script>
     
 </body>
 </html>
